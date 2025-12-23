@@ -10,6 +10,8 @@ Tool untuk mengecek website/IP address yang bisa digunakan untuk injeksi kuota d
 
 - ✅ **Multi-Platform**: Android (Termux), Windows, Linux, macOS
 - ✅ **8 Mode Scan**: Address, Wildcard, SNI, Onering, SSH, Subdomain, Reverse IP, SNI v2
+- ✅ **Account Management**: Simpan & load URL VPN untuk testing cepat
+- ✅ **Dual Network Support**: Pilih interface spesifik (Linux dual WiFi/network)
 - ✅ **Multiple List Files**: wa.txt, ig.txt, tiktok.txt, line.txt, music.txt, dll
 - ✅ **Separate Results**: Hasil tersimpan terpisah per list
 - ✅ **Multi Protocol**: VMess, VLess, Trojan
@@ -74,17 +76,83 @@ python jhopan.py
 - [6] Subdomain Scanner
 - [7] Reverse IP Address
 - [8] **SNI v2** - Test SNI + Host sekaligus (untuk Clash)
+- [9] **Manage Accounts** - Kelola URL VPN tersimpan
 
 **Input:**
 
-1. Pilih metode (1-8)
-2. Masukkan URL VPN (vmess/vless/trojan)
+1. Pilih metode (1-9)
+2. Pilih/masukkan URL VPN (tersimpan atau baru)
 3. Masukkan file list (wa.txt, ig.txt, dll)
+4. (Linux dual network) Pilih interface untuk testing
 
 **Output:**
 
 - Hasil tersimpan di `{nama_list}_result.txt`
 - Contoh: `wa.txt` → `wa_result.txt`
+
+## 💾 Account Management
+
+**Simpan URL untuk testing cepat:**
+
+```bash
+python jhopan.py
+Mode: 1
+URL: vless://...
+List: wa.txt
+
+[?] Save this URL? (y/n): y
+[*] Account name: MyVPN
+
+# Next time:
+python jhopan.py
+Mode: 1
+
+[*] Saved Accounts
+[1] MyVPN      - vless
+[0] Enter new URL
+[?] Select: 1  # ← Quick select!
+```
+
+**Manage saved accounts:**
+- Option [9] di menu utama
+- List semua akun tersimpan
+- Hapus akun yang tidak diperlukan
+
+## 🌐 Dual Network Mode (Linux)
+
+**Untuk setup dual WiFi/network:**
+
+```bash
+# Setup:
+# - WiFi USB (wlan0) → Internet normal
+# - WiFi Laptop (wlan1) → Kuota provider
+
+sudo python3 jhopan.py
+Mode: 1
+URL: vless://...
+List: wa.txt
+
+# Auto detect dual network:
+[*] Network Mode Selection
+[1] Auto (recommended) - Use default routing
+[2] Advanced - Select specific interface
+[?] Choose: 2
+
+[*] Available Network Interfaces
+[1] wlan0    - 192.168.1.5    # Internet normal
+[2] wlan1    - 192.168.43.10  # Kuota provider
+[?] Select: 2
+
+[+] Using interface: wlan1
+# Testing via kuota, operations via internet!
+```
+
+**Catatan:**
+- Auto mode: Windows, Termux, Linux single network
+- Advanced mode: Linux dengan 2+ network interface
+- Butuh `sudo` untuk bind interface
+- Traffic xray via interface pilihan
+- HTTP requests tetap via default route
 
 ## 📝 List Files Lengkap
 

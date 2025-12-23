@@ -4,7 +4,7 @@ import os
 import platform
 from colorama import Fore, Style, init
 from modules import parse, config, test_xray, ssh, subdomain, onering, revip
-from utils import helpers
+from utils import helpers, accounts, network
 from core import check
 
 init()
@@ -19,7 +19,16 @@ def main():
     print(helpers.show_banner())
     check.check_core()
     helpers.show_menu()
-    choice = input(f"{Fore.YELLOW}[*] Pilih metode (1-8): {Style.RESET_ALL}").strip()
+    
+    # Add account management option
+    print(f"{Fore.YELLOW}[9]{Style.RESET_ALL} Manage Saved Accounts")
+    
+    choice = input(f"{Fore.YELLOW}[*] Pilih metode (1-9): {Style.RESET_ALL}").strip()
+    
+    # Account management
+    if choice == "9":
+        accounts.manage_accounts_menu()
+        return
     
     if choice == "5":
         print(f"{Fore.CYAN}[!] Mode : SSH Websocket{Style.RESET_ALL}")
@@ -27,10 +36,10 @@ def main():
         return
         
     if choice == "7":
-    	print(f"{Fore.CYAN}[!] Mode : Reverse IP Address{Style.RESET_ALL}")
-    	revip.reverse_ip()
-    	return
-    	
+        print(f"{Fore.CYAN}[!] Mode : Reverse IP Address{Style.RESET_ALL}")
+        revip.reverse_ip()
+        return
+    
     if choice == "6":
         print(f"{Fore.CYAN}[!] Mode : Subdomain Scanner{Style.RESET_ALL}")
         subdomain.Subdomain()
@@ -50,7 +59,8 @@ def main():
     
     print(f"{Fore.CYAN}[!] Mode: {modes[choice]}{Style.RESET_ALL}")
     
-    url = input(f"{Fore.YELLOW}[*] URL akun (vmess/trojan/vless): {Style.RESET_ALL}").strip()
+    # URL selection with account management
+    url = accounts.select_account()
     
     if not url:
         print(f"{Fore.RED}[!] URL diperlukan{Style.RESET_ALL}")
@@ -74,6 +84,15 @@ def main():
     if not os.path.exists(list_file):
         print(f"{Fore.RED}[!] File tidak ditemukan{Style.RESET_ALL}")
         return
+    
+    # Ask if user wants to save this account
+    accounts.ask_save_account(url)
+    
+    # Get network interface for testing (dual network support)
+    selected_interface = network.get_network_interface()
+    
+    # Set interface for test_xray module
+    test_xray.set_interface(selected_interface)
     
     # Get result file name based on list file name
     # e.g., wa.txt -> wa_result.txt, list.txt -> list_result.txt

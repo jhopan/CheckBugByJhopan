@@ -130,7 +130,7 @@ def create_xray_config_wildcard(server_config, target_address, interface=None):
         }
     
     if server_config['protocol'] == 'trojan':
-        outbound = {
+        base_config["outbounds"] = [{
             "protocol": "trojan",
             "settings": {
                 "servers": [{
@@ -140,13 +140,10 @@ def create_xray_config_wildcard(server_config, target_address, interface=None):
                 }]
             },
             "streamSettings": stream_settings
-        }
-        if interface:
-            outbound["streamSettings"]["sockopt"] = {"interface": interface}
-        base_config["outbounds"] = [outbound]
+        }]
     
     elif server_config['protocol'] == 'vmess':
-        outbound = {
+        base_config["outbounds"] = [{
             "protocol": "vmess",
             "settings": {
                 "vnext": [{
@@ -159,13 +156,10 @@ def create_xray_config_wildcard(server_config, target_address, interface=None):
                 }]
             },
             "streamSettings": stream_settings
-        }
-        if interface:
-            outbound["streamSettings"]["sockopt"] = {"interface": interface}
-        base_config["outbounds"] = [outbound]
+        }]
     
     elif server_config['protocol'] == 'vless':
-        outbound = {
+        base_config["outbounds"] = [{
             "protocol": "vless",
             "settings": {
                 "vnext": [{
@@ -179,14 +173,11 @@ def create_xray_config_wildcard(server_config, target_address, interface=None):
                 }]
             },
             "streamSettings": stream_settings
-        }
-        if interface:
-            outbound["streamSettings"]["sockopt"] = {"interface": interface}
-        base_config["outbounds"] = [outbound]
+        }]
     
     return base_config
 
-def create_xray_config_sniv2(server_config, target_sni, interface=None):
+def create_xray_config_sniv2(server_config, target_sni):
     """
     SNI v2 mode: Target digunakan sebagai SNI (servername) DAN Host header
     Berguna untuk config seperti Clash dimana servername dan Host harus sama
@@ -229,7 +220,7 @@ def create_xray_config_sniv2(server_config, target_sni, interface=None):
         }
     
     if server_config['protocol'] == 'trojan':
-        outbound = {
+        base_config["outbounds"] = [{
             "protocol": "trojan",
             "settings": {
                 "servers": [{
@@ -239,13 +230,10 @@ def create_xray_config_sniv2(server_config, target_sni, interface=None):
                 }]
             },
             "streamSettings": stream_settings
-        }
-        if interface:
-            outbound["streamSettings"]["sockopt"] = {"interface": interface}
-        base_config["outbounds"] = [outbound]
+        }]
     
     elif server_config['protocol'] == 'vmess':
-        outbound = {
+        base_config["outbounds"] = [{
             "protocol": "vmess",
             "settings": {
                 "vnext": [{
@@ -258,13 +246,10 @@ def create_xray_config_sniv2(server_config, target_sni, interface=None):
                 }]
             },
             "streamSettings": stream_settings
-        }
-        if interface:
-            outbound["streamSettings"]["sockopt"] = {"interface": interface}
-        base_config["outbounds"] = [outbound]
+        }]
     
     elif server_config['protocol'] == 'vless':
-        outbound = {
+        base_config["outbounds"] = [{
             "protocol": "vless",
             "settings": {
                 "vnext": [{
@@ -278,9 +263,6 @@ def create_xray_config_sniv2(server_config, target_sni, interface=None):
                 }]
             },
             "streamSettings": stream_settings
-        }
-        if interface:
-            outbound["streamSettings"]["sockopt"] = {"interface": interface}
-        base_config["outbounds"] = [outbound]
+        }]
     
     return base_config

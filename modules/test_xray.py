@@ -7,6 +7,14 @@ from colorama import Fore, Style
 
 XRAY_PATH = "/data/data/com.termux/files/usr/bin/xray"
 
+# Global variable for network interface binding
+SELECTED_INTERFACE = None
+
+def set_interface(interface):
+    """Set the network interface to use for xray testing"""
+    global SELECTED_INTERFACE
+    SELECTED_INTERFACE = interface
+
 def get_xray_command():
     if os.path.exists(XRAY_PATH):
         return XRAY_PATH
@@ -42,13 +50,13 @@ def test_xray_connection(config_file):
 def test_address(target_address, server_config, sni_address=None, config_func=None):
     try:
         if config_func:
-            xray_config = config_func(server_config, target_address)
+            xray_config = config_func(server_config, target_address, SELECTED_INTERFACE)
         elif sni_address:
             from modules.config import create_xray_config
-            xray_config = create_xray_config(server_config, None, sni_address)
+            xray_config = create_xray_config(server_config, None, sni_address, SELECTED_INTERFACE)
         else:
             from modules.config import create_xray_config
-            xray_config = create_xray_config(server_config, target_address)
+            xray_config = create_xray_config(server_config, target_address, None, SELECTED_INTERFACE)
         
         if target_address:
             config_name = target_address.replace('.', '-').replace('/', '-')
@@ -129,4 +137,4 @@ def load_addresses_from_file(filename):
 def test_sniv2_address(target_sni, server_config):
     """Test SNI v2: Target digunakan sebagai SNI dan Host header"""
     from modules.config import create_xray_config_sniv2
-    return test_address(target_sni, server_config, config_func=lambda cfg, tgt: create_xray_config_sniv2(cfg, tgt))
+    return test_address(target_sni, server_config, config_func=lambda cfg, tgt, iface: create_xray_config_sniv2(cfg, tgt, iface))

@@ -1,0 +1,63 @@
+# Music Streaming - Complete List (IP & Domains)
+# JOOX
+www.joox.com
+api.joox.com
+image.joox.com
+h5.joox.com
+www-apac.joox.com
+
+# JOOX CDN
+jximg.joox.com
+vmusic.joox.com
+musicfile.joox.com
+stream.joox.com
+
+# Spotify
+www.spotify.com
+api.spotify.com
+open.spotify.com
+audio-ak-spotify-com.akamaized.net
+audio-sp-syd.spotify.com
+spclient.wg.spotify.com
+
+# Spotify CDN
+i.scdn.co
+seektables.scdn.co
+audio-ak.spotify.com.edgesuite.net
+
+# YouTube Music
+music.youtube.com
+www.youtube.com
+youtubei.googleapis.com
+yt3.ggpht.com
+
+# Apple Music
+music.apple.com
+api.music.apple.com
+amp-api.music.apple.com
+play.itunes.apple.com
+
+# Deezer
+www.deezer.com
+api.deezer.com
+cdn-images.deezer.com
+cdns-preview.dzcdn.net
+
+# SoundCloud
+soundcloud.com
+api.soundcloud.com
+i1.sndcdn.com
+cf-media.sndcdn.com
+
+# Tidal
+listen.tidal.com
+api.tidal.com
+resources.tidal.com
+
+# IP Addresses (Common Music Streaming)
+157.240.0.0
+35.186.224.0
+34.107.221.0
+104.244.42.0
+172.217.0.0
+142.250.0.0

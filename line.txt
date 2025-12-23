@@ -1,0 +1,73 @@
+# LINE & Naver - Complete List (IP & Domains)
+# LINE Main
+line.me
+access.line.me
+m.line.me
+store.line.me
+
+# LINE API
+api.line.me
+gw.line.naver.jp
+obs.line-scdn.net
+obs-sg.line-scdn.net
+
+# LINE CDN & Static
+static.line-scdn.net
+stickershop.line-scdn.net
+dl.stickershop.line.naver.jp
+obs.line-apps.com
+
+# LINE Services
+talk.line.me
+timeline.line.me
+buy.line.me
+pay.line.me
+game.line.me
+
+# LINE Video & Call
+vos.line-scdn.net
+vos-sg.line-scdn.net
+legy-jp.line.naver.jp
+legy-sg.line.naver.jp
+
+# Naver Main
+www.naver.com
+m.naver.com
+api.naver.com
+
+# Naver Services
+search.naver.com
+shopping.naver.com
+blog.naver.com
+cafe.naver.com
+news.naver.com
+
+# Naver CDN
+static.naver.net
+ssl.pstatic.net
+phinf.pstatic.net
+blogpfthumb.pstatic.net
+
+# Naver Cloud
+navercorp.com
+ncloud.com
+nbp.io
+
+# LINE-Naver Shared
+line.naver.jp
+linecorp.com
+
+# IP Addresses (Common LINE IPs)
+125.209.208.0
+125.209.209.0
+125.209.210.0
+147.92.128.0
+147.92.129.0
+203.104.128.0
+203.104.129.0
+
+# IP Addresses (Common Naver IPs)
+125.209.192.0
+125.209.193.0
+211.249.220.0
+223.130.200.0

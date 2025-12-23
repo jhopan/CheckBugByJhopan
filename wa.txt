@@ -1,0 +1,36 @@
+# WhatsApp - Complete List (IP & Domains)
+# Main domains
+web.whatsapp.com
+v.whatsapp.net
+media.whatsapp.net
+static.whatsapp.net
+graph.whatsapp.com
+api.whatsapp.com
+wa.me
+chat.whatsapp.com
+
+# Media servers
+media-ams3-1.cdn.whatsapp.net
+media-lhr3-1.cdn.whatsapp.net
+media-sin6-1.cdn.whatsapp.net
+mmg.whatsapp.net
+
+# Web/API endpoints
+scontent.whatsapp.net
+dyn.web.whatsapp.com
+crashlogs.whatsapp.net
+
+# CDN & Static
+cdn.whatsapp.net
+static.whatsapp.com
+
+# IP Addresses (Common WhatsApp IPs)
+157.240.0.0
+157.240.1.0
+157.240.2.0
+157.240.7.0
+157.240.15.0
+31.13.64.0
+31.13.65.0
+31.13.66.0
+31.13.67.0

@@ -1,0 +1,54 @@
+# Instagram - Complete List (IP & Domains)
+# Main domains
+www.instagram.com
+i.instagram.com
+api.instagram.com
+graph.instagram.com
+edge-chat.instagram.com
+
+# CDN & Content Delivery
+scontent.cdninstagram.com
+scontent-sin6-1.cdninstagram.com
+scontent-sin6-2.cdninstagram.com
+scontent-lhr8-1.cdninstagram.com
+scontent-ams4-1.cdninstagram.com
+
+# Video CDN
+video.cdninstagram.com
+video-sin6-1.cdninstagram.com
+video-sin6-2.cdninstagram.com
+video-lhr8-1.cdninstagram.com
+
+# Instagram via Facebook CDN
+instagram.fsin6-1.fna.fbcdn.net
+instagram.fsin6-2.fna.fbcdn.net
+instagram.flhr8-1.fna.fbcdn.net
+scontent-sin6-1.xx.fbcdn.net
+
+# API endpoints
+i-api.instagram.com
+b-api.instagram.com
+b-graph.instagram.com
+
+# Static & Assets
+static.cdninstagram.com
+distillery.s3.amazonaws.com
+
+# Real-time & Chat
+edge-mqtt.facebook.com
+mqtt-mini.facebook.com
+
+# IP Addresses (Common Instagram IPs)
+157.240.0.0
+157.240.1.0
+157.240.2.0
+157.240.7.0
+157.240.15.0
+157.240.208.0
+157.240.241.0
+31.13.64.0
+31.13.65.0
+31.13.66.0
+31.13.67.0
+31.13.68.0
+31.13.69.0

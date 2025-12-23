@@ -1,0 +1,18 @@
+# List SNI/Domain untuk mode SNI v2
+# Domain ini akan digunakan sebagai servername (SNI) dan Host header
+# Cocok untuk config Clash/v2ray dengan TLS + Websocket
+
+# Cloudflare CDN
+biznet.vpnstore28.my.id
+cdn.cloudflare.net
+cloudflare.com
+
+# Popular domains
+www.google.com
+www.youtube.com
+www.facebook.com
+
+# CDN providers
+cdn.jsdelivr.net
+cdn.cloudflare.net
+fastly.net

@@ -1,21 +1,29 @@
-![Jhopan](https://img.shields.io/badge/JHOPAN-v3.2-blue?style=for-the-badge&logo=probot&logoColor=white)
-![Version](https://img.shields.io/badge/Version-3.2--CrossPlatform-blue?style=for-the-badge&logo=git&logoColor=white)
+![Jhopan](https://img.shields.io/badge/JHOPAN-v3.3-blue?style=for-the-badge&logo=probot&logoColor=white)
+![Version](https://img.shields.io/badge/Version-3.3--Advanced-blue?style=for-the-badge&logo=git&logoColor=white)
 ![Xray-core](https://img.shields.io/badge/Xray--core-v25.12.8-orange?style=for-the-badge&logo=windowsterminal&logoColor=white)
 
-# Jhopan - Cross Platform Bug Checker
+# Jhopan - Advanced Bug Checker
 
-Tool untuk mengecek website/IP address yang bisa digunakan untuk injeksi kuota dengan dukungan Xray-core 25.12.8 dan SSH Websocket. Support Android (Termux), Windows, Linux, dan macOS!
+Tool canggih untuk mengecek website/IP address yang bisa digunakan untuk injeksi kuota dengan dukungan Xray-core 25.12.8 dan SSH Websocket. Support Android (Termux), Windows, Linux, dan macOS!
 
 ## 🚀 Fitur Utama
 
+### Core Features
 - ✅ **Multi-Platform**: Android (Termux), Windows, Linux, macOS
 - ✅ **8 Mode Scan**: Address, Wildcard, SNI, Onering, SSH, Subdomain, Reverse IP, SNI v2
-- ✅ **Account Management**: Simpan & load URL VPN untuk testing cepat
-- ✅ **Dual Network Support**: Pilih interface spesifik (Linux dual WiFi/network)
-- ✅ **Multiple List Files**: wa.txt, ig.txt, tiktok.txt, line.txt, music.txt, dll
-- ✅ **Separate Results**: Hasil tersimpan terpisah per list
 - ✅ **Multi Protocol**: VMess, VLess, Trojan
 - ✅ **Complete List**: List lengkap IP + Domain untuk WhatsApp, Instagram, TikTok, LINE, Music
+
+### Advanced Features ⚡ NEW!
+- ✅ **Custom Settings**: Timeout, parallel jobs, auto retry (dengan defaults)
+- ✅ **Batch Mode**: Scan multiple lists sekaligus
+- ✅ **Live Progress Bar**: Real-time status dengan success rate
+- ✅ **Auto Retry**: Retry failed targets otomatis (network glitch protection)
+- ✅ **Scan History**: Track semua scan dengan details
+- ✅ **Telegram Bot**: Notification otomatis dengan hasil lengkap
+- ✅ **Account Management**: Simpan & load URL VPN untuk testing cepat
+- ✅ **Dual Network**: Pilih interface spesifik (Linux dual WiFi/network)
+- ✅ **Separate Results**: Hasil tersimpan terpisah per list
 
 ## 📦 Quick Install
 
@@ -66,8 +74,9 @@ python3 jhopan.py
 python jhopan.py
 ```
 
-**Pilih Mode:**
+**Menu Utama:**
 
+### Scan Modes:
 - [1] Address - Test IP/server berbeda
 - [2] Wildcard - Test wildcard domain
 - [3] SNI - Test SNI/servername
@@ -76,19 +85,29 @@ python jhopan.py
 - [6] Subdomain Scanner
 - [7] Reverse IP Address
 - [8] **SNI v2** - Test SNI + Host sekaligus (untuk Clash)
+
+### Management:
 - [9] **Manage Accounts** - Kelola URL VPN tersimpan
+- [10] ⚙️ **Settings** - Custom timeout, parallel, retry, Telegram
+- [11] 📚 **View History** - Lihat scan history & details
+- [12] 📦 **Batch Mode** - Scan multiple lists sekaligus
 
-**Input:**
+**Basic Flow:**
 
-1. Pilih metode (1-9)
+1. Pilih metode (1-12)
 2. Pilih/masukkan URL VPN (tersimpan atau baru)
 3. Masukkan file list (wa.txt, ig.txt, dll)
 4. (Linux dual network) Pilih interface untuk testing
+5. Scan berjalan dengan progress bar
+6. Auto retry failed targets (if enabled)
+7. Results + Telegram notification
 
 **Output:**
 
 - Hasil tersimpan di `{nama_list}_result.txt`
 - Contoh: `wa.txt` → `wa_result.txt`
+- History tersimpan otomatis
+- Telegram notification (if configured)
 
 ## 💾 Account Management
 
@@ -114,6 +133,7 @@ Mode: 1
 ```
 
 **Manage saved accounts:**
+
 - Option [9] di menu utama
 - List semua akun tersimpan
 - Hapus akun yang tidak diperlukan
@@ -148,6 +168,7 @@ List: wa.txt
 ```
 
 **Catatan:**
+
 - Auto mode: Windows, Termux, Linux single network
 - Advanced mode: Linux dengan 2+ network interface
 - Butuh `sudo` untuk bind interface

@@ -195,8 +195,46 @@ python jhopan.py
 
 **PENTING untuk Linux dual network:**
 
-- **Telegram bot** → Pakai WiFi USB (wlan0 - internet)
-- **Xray testing** → Pakai WiFi Laptop (wlan1 - kuota)
+Jhopan v3.3.1+ mendukung pemilihan interface untuk Telegram!
+
+**Konfigurasi:**
+```bash
+python jhopan.py
+[10] Settings
+[8] Telegram Interface
+
+[1] Auto (default route) - Recommended
+[2] wlan0 - 192.168.1.100 (Internet)
+[3] wlan1 - 192.168.43.1 (Kuota only)
+
+[?] Select (1-3): 2
+[+] Telegram: wlan0 (192.168.1.100)
+[!] Warning: Interface must have internet!
+```
+
+**Rekomendasi setup:**
+- **Telegram Interface**: wlan0 (WiFi USB - internet)  ← Set di Settings
+- **Xray Interface**: wlan1 (WiFi Laptop - kuota)  ← Dipilih saat scan
+
+**Default "Auto":**
+- Pakai default routing (works for single network)
+- Recommended untuk setup normal
+- Automatic interface selection
+
+**Manual Selection:**
+- Telegram paksa pakai interface tertentu
+- **Wajib punya internet!** (untuk kirim ke Telegram API)
+- Gunakan untuk dual network setup
+
+**Test Connection:**
+```bash
+[10] Settings
+[T] Test Telegram Connection
+
+🤖 Bot Test
+✅ Bot configured successfully!
+🌐 Using interface: wlan0
+```
 
 Bot menggunakan default routing (internet), tidak terikat ke interface testing!
 

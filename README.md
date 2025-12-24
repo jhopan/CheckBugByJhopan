@@ -1,5 +1,5 @@
-![Jhopan](https://img.shields.io/badge/JHOPAN-v3.3-blue?style=for-the-badge&logo=probot&logoColor=white)
-![Version](https://img.shields.io/badge/Version-3.3--Advanced-blue?style=for-the-badge&logo=git&logoColor=white)
+![Jhopan](https://img.shields.io/badge/JHOPAN-v3.3.1-blue?style=for-the-badge&logo=probot&logoColor=white)
+![Version](https://img.shields.io/badge/Version-3.3.1--Advanced-blue?style=for-the-badge&logo=git&logoColor=white)
 ![Xray-core](https://img.shields.io/badge/Xray--core-v25.12.8-orange?style=for-the-badge&logo=windowsterminal&logoColor=white)
 
 # Jhopan - Advanced Bug Checker
@@ -14,13 +14,14 @@ Tool canggih untuk mengecek website/IP address yang bisa digunakan untuk injeksi
 - ✅ **Multi Protocol**: VMess, VLess, Trojan
 - ✅ **Complete List**: List lengkap IP + Domain untuk WhatsApp, Instagram, TikTok, LINE, Music
 
-### Advanced Features ⚡ NEW!
+### Advanced Features ⚡ v3.3.1
 - ✅ **Custom Settings**: Timeout, parallel jobs, auto retry (dengan defaults)
 - ✅ **Batch Mode**: Scan multiple lists sekaligus
 - ✅ **Live Progress Bar**: Real-time status dengan success rate
 - ✅ **Auto Retry**: Retry failed targets otomatis (network glitch protection)
 - ✅ **Scan History**: Track semua scan dengan details
 - ✅ **Telegram Bot**: Notification otomatis dengan hasil lengkap
+- ✅ **Telegram Interface**: Pilih interface untuk Telegram (dual network support) 🆕
 - ✅ **Account Management**: Simpan & load URL VPN untuk testing cepat
 - ✅ **Dual Network**: Pilih interface spesifik (Linux dual WiFi/network)
 - ✅ **Separate Results**: Hasil tersimpan terpisah per list

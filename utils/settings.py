@@ -6,6 +6,7 @@ Settings management with defaults
 import json
 import os
 from colorama import Fore, Style
+from utils import telegram_bot
 
 SETTINGS_FILE = "jhopan_settings.json"
 
@@ -18,6 +19,7 @@ DEFAULT_SETTINGS = {
     "telegram_enabled": False,
     "telegram_token": "",
     "telegram_chat_id": "",
+    "telegram_interface": "auto",  # auto or interface name (wlan0, wlan1, etc)
     "speed_test_enabled": False,
     "show_progress": True
 }
@@ -86,8 +88,11 @@ def settings_menu():
         if settings['telegram_enabled']:
             print(f"      Bot Token: {settings['telegram_token'][:10]}...{settings['telegram_token'][-5:] if settings['telegram_token'] else 'Not set'}")
             print(f"      Chat ID: {settings['telegram_chat_id']}")
+            print(f"      Interface: {settings.get('telegram_interface', 'auto')}")
+            print(f"  [T] Test Telegram Connection")
+        print(f"  [8] Telegram Interface")
         
-        print(f"\n{Fore.GREEN}[8]{Style.RESET_ALL} Reset to Defaults")
+        print(f"\n{Fore.GREEN}[9]{Style.RESET_ALL} Reset to Defaults")
         print(f"{Fore.RED}[0]{Style.RESET_ALL} Back to Main Menu")
         print("="*60)
         
@@ -146,6 +151,7 @@ def settings_menu():
                     settings['telegram_token'] = token
                     settings['telegram_chat_id'] = chat_id
                     settings['telegram_enabled'] = True
+                    settings['telegram_interface'] = 'auto'  # Default auto
                     print(f"{Fore.GREEN}[+] Telegram enabled!{Style.RESET_ALL}")
             else:
                 # Disable
@@ -153,6 +159,49 @@ def settings_menu():
                 print(f"{Fore.YELLOW}[!] Telegram disabled{Style.RESET_ALL}")
         
         elif choice == '8':
+            # Telegram interface selection
+            from utils import network
+            
+            print(f"\n{Fore.CYAN}[*] Telegram Interface Selection{Style.RESET_ALL}")
+            print(f"{Fore.YELLOW}[!] Telegram needs internet access!{Style.RESET_ALL}")
+            print(f"{Fore.YELLOW}[!] 'Auto' uses default routing (recommended){Style.RESET_ALL}\n")
+            
+            print(f"{Fore.GREEN}[1]{Style.RESET_ALL} Auto (default route) - Recommended")
+            
+            # Get available interfaces
+            interfaces = network.get_active_interfaces()
+            if interfaces:
+                for i, iface in enumerate(interfaces, 2):
+                    print(f"{Fore.GREEN}[{i}]{Style.RESET_ALL} {iface['name']:10} - {iface['ip']}")
+            
+            print(f"\n{Fore.CYAN}Current: {settings.get('telegram_interface', 'auto')}{Style.RESET_ALL}")
+            
+            try:
+                iface_choice = int(input(f"{Fore.CYAN}[?] Select (1-{len(interfaces)+1 if interfaces else 1}): {Style.RESET_ALL}"))
+                
+                if iface_choice == 1:
+                    settings['telegram_interface'] = 'auto'
+                    print(f"{Fore.GREEN}[+] Telegram: Auto (default route){Style.RESET_ALL}")
+                elif interfaces and 2 <= iface_choice <= len(interfaces) + 1:
+                    selected = interfaces[iface_choice - 2]
+                    settings['telegram_interface'] = selected['name']
+                    print(f"{Fore.GREEN}[+] Telegram: {selected['name']} ({selected['ip']}){Style.RESET_ALL}")
+                    print(f"{Fore.YELLOW}[!] Warning: Interface must have internet!{Style.RESET_ALL}")
+            except (ValueError, KeyboardInterrupt):
+                print(f"{Fore.YELLOW}[!] Cancelled{Style.RESET_ALL}")
+        
+        elif choice.lower() == 't':
+            # Test Telegram connection
+            if settings.get('telegram_enabled'):
+                telegram_bot.test_telegram_connection(
+                    settings['telegram_token'],
+                    settings['telegram_chat_id'],
+                    settings.get('telegram_interface', 'auto')
+                )
+            else:
+                print(f"{Fore.RED}[!] Telegram not enabled{Style.RESET_ALL}")
+        
+        elif choice == '9':
             confirm = input(f"{Fore.YELLOW}[!] Reset to defaults? (y/n): {Style.RESET_ALL}").strip().lower()
             if confirm == 'y':
                 settings = DEFAULT_SETTINGS.copy()

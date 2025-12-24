@@ -1,19 +1,40 @@
 #!/usr/bin/env python3
 """
 Telegram bot notification module
-IMPORTANT: Always use default route (not bound to specific interface)
-This ensures Telegram works even when testing interface has no internet
+Supports interface binding for dual network setups
 """
 
 import requests
 import platform
+import socket
 from colorama import Fore, Style
 
 
-def send_telegram_message(token, chat_id, message):
+def get_interface_ip(interface_name):
+    """Get IP address of specific interface"""
+    if interface_name == "auto" or not interface_name:
+        return None
+    
+    try:
+        # Try to get IP from interface using netifaces
+        try:
+            import netifaces
+            addrs = netifaces.ifaddresses(interface_name)
+            if netifaces.AF_INET in addrs:
+                return addrs[netifaces.AF_INET][0]['addr']
+        except ImportError:
+            pass
+        
+        # Fallback: manual detection not reliable cross-platform
+        return None
+    except:
+        return None
+
+
+def send_telegram_message(token, chat_id, message, interface="auto"):
     """
     Send message to Telegram
-    Uses default routing (not bound to interface) - works even if testing interface has no internet
+    interface: "auto" for default route, or interface name (wlan0, wlan1, etc)
     """
     if not token or not chat_id:
         return False
@@ -27,17 +48,48 @@ def send_telegram_message(token, chat_id, message):
     }
     
     try:
-        # Force use default interface by not binding to specific interface
-        # This ensures Telegram works even when xray uses wlan1 (no internet)
-        # Telegram will use wlan0 (internet) automatically
-        response = requests.post(url, data=data, timeout=10)
-        return response.status_code == 200
+        # Default: use default routing
+        if interface == "auto" or not interface:
+            response = requests.post(url, data=data, timeout=10)
+            return response.status_code == 200
+        
+        # Specific interface: bind to interface IP
+        source_ip = get_interface_ip(interface)
+        
+        if source_ip:
+            # Create custom session with source address
+            session = requests.Session()
+            
+            # Monkey-patch socket to bind to specific IP
+            original_socket = socket.socket
+            
+            def bound_socket(*args, **kwargs):
+                sock = original_socket(*args, **kwargs)
+                try:
+                    sock.bind((source_ip, 0))
+                except:
+                    pass
+                return sock
+            
+            socket.socket = bound_socket
+            
+            try:
+                response = session.post(url, data=data, timeout=10)
+                return response.status_code == 200
+            finally:
+                socket.socket = original_socket
+        else:
+            # Fallback to default route
+            print(f"{Fore.YELLOW}[!] Could not bind to {interface}, using default route{Style.RESET_ALL}")
+            response = requests.post(url, data=data, timeout=10)
+            return response.status_code == 200
+            
     except Exception as e:
         print(f"{Fore.RED}[!] Telegram error: {e}{Style.RESET_ALL}")
         return False
 
 
-def send_scan_start(token, chat_id, mode, list_file, total_targets):
+def send_scan_start(token, chat_id, mode, list_file, total_targets, interface="auto"):
     """Send notification when scan starts"""
     message = f"""
 🚀 <b>Scan Started</b>
@@ -48,10 +100,10 @@ def send_scan_start(token, chat_id, mode, list_file, total_targets):
 
 ⏳ Testing in progress...
 """
-    return send_telegram_message(token, chat_id, message.strip())
+    return send_telegram_message(token, chat_id, message.strip(), interface)
 
 
-def send_scan_complete(token, chat_id, mode, list_file, total, success, failed, duration, connected_list, failed_list):
+def send_scan_complete(token, chat_id, mode, list_file, total, success, failed, duration, connected_list, failed_list, interface="auto"):
     """
     Send detailed scan results to Telegram
     Includes connected and failed targets
@@ -98,10 +150,10 @@ def send_scan_complete(token, chat_id, mode, list_file, total, success, failed, 
     
     message += f"\n💾 Result saved to: <code>{list_file.replace('.txt', '_result.txt')}</code>"
     
-    return send_telegram_message(token, chat_id, message.strip())
+    return send_telegram_message(token, chat_id, message.strip(), interface)
 
 
-def send_batch_complete(token, chat_id, results):
+def send_batch_complete(token, chat_id, results, interface="auto"):
     """Send batch scan summary"""
     total_success = sum(r['success'] for r in results)
     total_targets = sum(r['total'] for r in results)
@@ -129,16 +181,19 @@ def send_batch_complete(token, chat_id, results):
         message += f"\n{emoji} {r['list_file']}\n"
         message += f"   {r['success']}/{r['total']} ({success_rate}%) - {r['duration']:.1f}s\n"
     
-    return send_telegram_message(token, chat_id, message.strip())
+    return send_telegram_message(token, chat_id, message.strip(), interface)
 
 
-def test_telegram_connection(token, chat_id):
+def test_telegram_connection(token, chat_id, interface="auto"):
     """Test if Telegram bot is working"""
     message = "🤖 <b>Jhopan Bot Test</b>\n\n✅ Bot configured successfully!"
     
+    if interface != "auto":
+        message += f"\n🌐 Using interface: <code>{interface}</code>"
+    
     print(f"{Fore.CYAN}[*] Testing Telegram connection...{Style.RESET_ALL}")
     
-    if send_telegram_message(token, chat_id, message):
+    if send_telegram_message(token, chat_id, message, interface):
         print(f"{Fore.GREEN}[+] Telegram test successful!{Style.RESET_ALL}")
         return True
     else:

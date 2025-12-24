@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-#Jhopan v.3.3 use xray core v25.12.8 - by Jhopan
+#Jhopan v.3.3.1 use xray core v25.12.8 - by Jhopan
 import os
 import platform
 import time
@@ -136,7 +136,8 @@ def main():
             settings['telegram_chat_id'],
             modes[choice],
             list_file,
-            len(targets)
+            len(targets),
+            settings.get('telegram_interface', 'auto')
         )
     
     # Scan with retry support
@@ -164,7 +165,8 @@ def main():
             len(failed),
             duration,
             connected,
-            failed
+            failed,
+            settings.get('telegram_interface', 'auto')
         )
     
     # Add to history
@@ -267,7 +269,8 @@ def batch_mode():
         telegram_bot.send_batch_complete(
             settings['telegram_token'],
             settings['telegram_chat_id'],
-            results
+            results,
+            settings.get('telegram_interface', 'auto')
         )
 
 
